@@ -76,3 +76,37 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
+
+
+create table
+public function up()
+    {
+        Schema::create('Plan', function (Blueprint $table) {
+            $table->id();
+            $table->string("destinazione", 30);
+            $table->string("hotel", 50);
+            $table->string("volo", 50);
+            $table->dateTime("andata");
+            $table->dateTime("ritorno");
+            $table->smallInteger("totale");
+            $table->timestamps();
+        });
+    }
+
+
+nel seeder
+public function run(Faker $faker)
+    {
+        for ($i=0; $i < 10; $i++) { 
+            $package= new Plan();
+            $package->destinazione = $faker->city();
+            $package->hotel = $faker->company();
+            $package->volo = $faker->company();
+            $package->andata = $faker->date($format = 'Y-m-d');
+            $package->ritorno = $faker->date($format = 'Y-m-d');
+            $package->totale = $faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = 30000);
+        }
+    }
